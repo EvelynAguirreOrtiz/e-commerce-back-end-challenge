@@ -4,8 +4,6 @@ const sequelize = require("../config/connection.js");
 
 class Tag extends Model {}
 
-// ------- BELONGS TO MANY PRODUCT MODELS -------
-
 Tag.init(
 	{
 		id: {

@@ -6,9 +6,6 @@ const sequelize = require("../config/connection");
 // Initialize Product model (table) by extending off Sequelize's Model class
 class Product extends Model {}
 
-// ------- BELONGS TO CATEGORY ---------
-// ------- BELONGS TO MANY TAG MODELS, USE ProductTag --------
-
 // set up fields and rules for Product model
 Product.init(
 	{
