@@ -3,28 +3,11 @@ const { Tag, Product, ProductTag } = require("../../models");
 
 router.get("/", (req, res) => {
 	Tag.findAll({
-		// attributes: ["id", "tag_name"],
 		include: [
 			{
 				model: Product,
-				// attributes: ["id", "product_name", "price", "stock", "category_id"],
-				// through: ProductTag,
-				// as: "product_id",
-
-				include: {
-					model: ProductTag,
-					// attributes: ["id", "product_id", "tag_id"],
-					through: Product,
-					as: "product_tag",
-				},
+				attributes: ["id", "product_name", "price", "stock", "category_id"],
 			},
-
-			// {
-			// 	model: ProductTag,
-			// 	attributes: ["id", "product_id", "tag_id"],
-			// 	through: Tag,
-			// 	as: "product_tag",
-			// },
 		],
 	})
 		.then((dbTagData) => res.json(dbTagData))
@@ -35,33 +18,16 @@ router.get("/", (req, res) => {
 });
 
 router.get("/:id", (req, res) => {
-	// find a single tag by its `id`
-	// be sure to include its associated Product data
 	Tag.findOne({
 		where: {
 			id: req.params.id,
 		},
-		attributes: ["id", "tag_name", "products"],
-
-		// include: [
-		// 	{
-		// 		model: Product,
-		// 		attributes: [
-		// 			"id",
-		// 			"product_name",
-		// 			"price",
-		// 			"stock",
-		// 			"category_id",
-		// 			"product_tag",
-		// 		],
-		// 		include: {
-		// 			model: ProductTag,
-		// 			attributes: ["id", "product_id", "tag_id"],
-		// 			through: Tag,
-		// 			as: "product_tag",
-		// 		},
-		// 	},
-		// ],
+		include: [
+			{
+				model: Product,
+				attributes: ["id", "product_name", "price", "stock", "category_id"],
+			},
+		],
 	})
 		.then((dbTagData) => {
 			if (!dbTagData) {
